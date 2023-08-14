@@ -18,7 +18,6 @@ fn create_block(
                 resource_distribution_vec.push(key)
             }
         }
-        println!("{}", resource_distribution_vec.len())
     }
     else if matches!(load_type, LoadType::DEXBURSTY)
     {
@@ -131,7 +130,7 @@ fn create_block(
         }
         else if matches!(load_type, NFT)
         {
-            resource_id = general_resource_distribution.sample(&mut rng);
+            let resource_id = general_resource_distribution.sample(&mut rng);
             sender_id = nft_sender_distribution.sample(&mut rng) % account_vector.len();
 
             tx_entry_function = EntryFunction::new(
@@ -143,7 +142,7 @@ fn create_block(
         }
         else
         {
-            resource_id = general_resource_distribution.sample(&mut rng);
+            let resource_id = general_resource_distribution.sample(&mut rng);
 
             tx_entry_function = EntryFunction::new(
                 contract_id.clone(),
@@ -161,7 +160,6 @@ fn create_block(
         seq_num.insert(sender_id, seq_num[&sender_id] + 1);
         result.push_back(txn);
     }
-    // println!("{:?}", result);
 
     result
 }
