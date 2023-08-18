@@ -13,79 +13,59 @@ fn create_block(
     let mut resource_distribution_vec:Vec<f64> = vec![];
     if matches!(load_type, LoadType::DEXAVG)
     {
-        for (key, value) in AVERAGE_VALUE_DISTRIBUTION {
-            for i in 0..value {
-                resource_distribution_vec.push(key)
-            }
+        for value in AVERAGE_VALUE_DISTRIBUTION {
+            resource_distribution_vec.push(value)
         }
     }
     else if matches!(load_type, LoadType::DEXBURSTY)
     {
-        for (key, value) in BURSTY_VALUE_DISTRIBUTION {
-            for i in 0..value {
-                resource_distribution_vec.push(key)
-            }
+        for value in BURSTY_VALUE_DISTRIBUTION {
+            resource_distribution_vec.push(value)
         }
     }
     else if matches!(load_type, LoadType::NFT)
     {
-        for (key, value) in NFT_DISTRIBUTION {
-            for i in 0..value {
-                resource_distribution_vec.push(key)
-            }
+        for value in NFT_DISTRIBUTION {
+            resource_distribution_vec.push(value)
         }
     }
     else if matches!(load_type, LoadType::SOLANA)
     {
-        for (key, value) in VALUE_DISTRIBUTION {
-            for i in 0..value * 20 {
-                resource_distribution_vec.push(key)
+        for value in VALUE_DISTRIBUTION {
+            for i in 0..20 {
+                resource_distribution_vec.push(value)
             }
         }
     }
 
     let mut solana_len_options:Vec<usize> = vec![];
-    let mut solana_len_distr_vec:Vec<u64> = vec![];
-
-    for (key, value) in WRITE_LENGTH_DISTRIBUTION {
-        solana_len_options.push(key.round() as usize);
-        solana_len_distr_vec.push(value);
-    }
-
     let mut solana_cost_options:Vec<f64> = vec![];
-    let mut solana_cost_distr_vec:Vec<u64> = vec![];
 
-    for (key, value) in GAS_COST_DISTRIBUTION {
-        solana_cost_options.push(key);
-        solana_cost_distr_vec.push(value);
+    for value in WRITE_LENGTH_DISTRIBUTION {
+        solana_len_options.push(value.round() as usize);
     }
 
-    let solana_len_distribution: WeightedIndex<u64> = WeightedIndex::new(&solana_len_distr_vec).unwrap();
-    let solana_cost_distribution: WeightedIndex<u64> = WeightedIndex::new(&solana_cost_distr_vec).unwrap();
+    for value in GAS_COST_DISTRIBUTION {
+        solana_cost_options.push(value);
+    }
 
     let general_resource_distribution: WeightedIndex<f64> = WeightedIndex::new(&resource_distribution_vec).unwrap();
 
     let mut nft_sender_distr_vec: Vec<f64> = vec![];
-    for (key, value) in USER_DISTRIBUTION {
-        for i in 0..value {
-            nft_sender_distr_vec.push(key)
-        }
+    for value in USER_DISTRIBUTION {
+        nft_sender_distr_vec.push(value)
     }
     let nft_sender_distribution: WeightedIndex<f64> = WeightedIndex::new(&nft_sender_distr_vec).unwrap();
 
     let mut p2p_sender_distr_vec:Vec<f64> = vec![];
     let mut p2p_receiver_distr_vec:Vec<f64> = vec![];
 
-    for (key, value) in RECEIVER_DISTRIBUTION {
-        for i in 0..value {
-            p2p_receiver_distr_vec.push(key);
-        }
+    for value in RECEIVER_DISTRIBUTION {
+        p2p_receiver_distr_vec.push(key);
     }
 
-    for (key, value) in SENDER_DISTRIBUTION {
-        for i in 0..value {
-            p2p_sender_distr_vec.push(key);
-        }
+    for value in SENDER_DISTRIBUTION {
+        p2p_sender_distr_vec.push(key);
     }
 
     let p2p_receiver_distribution: WeightedIndex<f64> = WeightedIndex::new(&p2p_receiver_distr_vec).unwrap();
@@ -97,8 +77,8 @@ fn create_block(
 
         if matches!(load_type, SOLANA)
         {
-            let cost_sample = solana_cost_options[solana_cost_distribution.sample(&mut rng)];
-            let write_len_sample = solana_len_options[solana_len_distribution.sample(&mut rng)];
+            let cost_sample = solana_cost_options[rand::thread_rng().gen_range(0..solana_cost_options.len())];
+            let write_len_sample = solana_len_options[rand::thread_rng().gen_range(0..solana_len_options.len())];
 
             let mut writes: Vec<u64> = Vec::new();
             let mut i = 0;

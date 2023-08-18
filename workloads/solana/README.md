@@ -8,17 +8,17 @@ First the probability distribution of resource accesses.
 Second, the distribution of the number of different resource accesses per transacation.
 And third, the gas cost distribution per transaction.
 
-In order to generate the actual probability distribution for the resource accesses the tuples have to be unpacked the following way:
+In order to generate the actual probability distribution the vector has to be unpacked the following way.
 
     let mut distribution_vector: Vec<f64> = vec![];
-    for (key, value) in DISTRIBUTION {
-        for i in 0..(value*20) {
-            distribution_vector.push(key)
+    for value in X_DISTRIBUTION {
+        for i in 0..20 {
+            distribution_vector.push(value)
         }
     }
 
-Unlike in the case of the other workloads, we increase the set of resources by a factor of 20, as each transaction accesses several resources. 
-This approximates the transaction conflicting pattern we observed at Solana.
+Unlike in the case of the other workloads, we increase the set of resources by a factor of 20, as each transaction accesses several resources.
+We executed the resulting workload several times with different configurations to find a configuration that approximates the path pattern we observed at Solana.
 
 This then results in a list of resources where each value represents one resource and its probability to be picked.
 I.E. [1,1,1,10] represents 4 resources and their respective probability to be picked, where the first three resources have a probability of 1 (out of 13) and the last resource a probability of 10 (out of 13).
@@ -32,24 +32,7 @@ We can then query unique values from the index to build a workload that conforms
     value = weighted_distribution.sample(&mut rng);
 
 
-For the transaction length and gas cost distribution the keys distribute the resource accesses/cost and the values their probability distribution.
-
-    let mut length_options:Vec<usize> = vec![];
-    let mut length_distr:Vec<usize> = vec![];
-
-    for (key, value) in WRITE_LENGTH_DISTRIBUTION {
-        length_options.push(key.round() as usize);
-        length_distr.push(value as usize);
-    }
-
-    let mut gas_options:Vec<f64> = vec![];
-    let mut gas_distr:Vec<usize> = vec![];
-
-    for (key, value) in GAS_COST_DISTRIBUTION {
-        gas_options.push(key);
-        gas_distr.push(value as usize);
-    }
-
+For the transaction length and gas cost vectors present the average values we observed in the evaluation period. As such, we can just pick random values from these vectors directly.
 
 The used smart contract can be found in the solana_contract.move file.
 While this is a Move contract it is straightforward to translate this to different smart contract languages.

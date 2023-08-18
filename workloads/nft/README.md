@@ -4,21 +4,13 @@ The NFT Benchmark simulates a unique distribution of users minting NFTs from sev
 The data is based on the minting behaviour on the Ethereum blockchain over the course of 2022.
 
 In the nft_workload.rs file there are two sets of tuples describing the unique users and the unique smart contracts NFTs are being minted from.
-In order to generate the actual probability distributions the tuples have to be unpacked the following way:
 
-    let mut distribution_vector: Vec<f64> = vec![];
-    for (key, value) in DISTRIBUTION {
-        for i in 0..value {
-            distribution_vector.push(key)
-        }
-    }
-
-This then results in a list of resources where each value represents one resource and its probability to be picked.
+This distribution is in the format of a list of resources where each value represents one resource and its probability to be picked.
 I.E. [1,1,1,10] represents 4 resources and their respective probability to be picked, where the first three resources have a probability of 1 (out of 13) and the last resource a probability of 10 (out of 13).
 
 In the case of rust we can then plug the distribution vector into a weighted index.
 
-    let weighted_distribution: WeightedIndex<f64> = WeightedIndex::new(&distribution_vector).unwrap();
+    let weighted_distribution: WeightedIndex<f64> = WeightedIndex::new(&X_DISTRIBUTION).unwrap();
 
 We can then query unique values from the index to build a workload that conforms to the probability distribution.
 
