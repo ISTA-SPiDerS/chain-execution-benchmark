@@ -4,7 +4,7 @@ This benchmark consists of a total of five individual benchmarks:
 - NFT minting (1000 block avg)
 - P2P Transactions (1000 block avg)
 - UniSwap Trading (Daily Average)
-- UniSwap Trading (Average of the 30 most bursty days)
+- UniSwap Trading (Daily Average of the 30 most bursty days)
 - Average Solana Workload (1000 block avg)
 
 All workloads associated to this benchmark can be found in the [workloads](workloads) folder as well as the respective documentation on how to generate the workload from the datasets.
