@@ -1,13 +1,13 @@
 # Mixed Benchmark
 
-The Mixed Benchmark simulates users accessing several resources within the same transaction with varying gas costs.
-The data is based on the real world Solana workload on the Solana blockchain over the course of 2022 and represents the average resource access distribution every 1000 blocks.
+The Mixed Benchmark simulates users accessing several resources in a single transaction with varying transaction runtimes.
+The data is based on the real world Solana transactional history on the Solana blockchain over the course of 2022 and represents the average resource access distribution every 1000 blocks.
 Unlike in the case of the other workloads, we increase the set of resources by a factor of 10, as each transaction accesses several resources to approximate the pattern of conflicting transactions we observed at Solana.
 
 In the mixed_workload.rs file there are three vectors describing the workload.
 First the distribution of resource accesses. 
 Second, the distribution of the number of different resource accesses per transacation.
-And third, the gas cost distribution per transaction.
+And third, the gas cost distribution per transaction, representing the transaction runtime.
 
 An example for the smart contract can be found in the mixed_contract.move file.
 In a nutshell we have one resource table (or map) where conflicts only happen when two transactions access the same key/entry.

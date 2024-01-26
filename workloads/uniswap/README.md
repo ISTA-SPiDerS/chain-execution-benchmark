@@ -1,7 +1,7 @@
 # Uniswap Benchmark
 
 The Uniswap Benchmark simulates a unique distribution of users buying assets at an exchange.
-The data is based on the uniswap transaction behaviour on the Ethereum blockchain over the course of 2022.
+The data is based on the uniswap transaction behaviour on the Ethereum blockchain over the course of 2022 and represents the daily average resource access distribution.
 
 In the uniswap_workload.rs file there are two vectors describing the workload.
 First an average workload that represents the average distribution of coin pairs over the year.

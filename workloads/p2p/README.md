@@ -1,7 +1,7 @@
 # P2P Benchmark
 
 The Peer-to-Peer Benchmark simulates a unique distribution of users transacting with eachother.
-The data is based on the peer-to-peer transaction behaviour on the Ethereum blockchain over the course of 2022.
+The data is based on the peer-to-peer transaction behaviour on the Ethereum blockchain over the course of 2022 and represents the average resource access distribution every 1000 block
 
 In the p2p_workload.rs file there are two vectors describing the distribution of senders and receivers.
 
