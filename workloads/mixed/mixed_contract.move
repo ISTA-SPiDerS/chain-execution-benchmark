@@ -20,7 +20,7 @@ module Owner::benchmark {
         move_to(owner, test_tables);
     }
 
-    public entry fun solana_workload(s: &signer, location: address, loop_count: u64, resources: vector<u64>) acquires TestTables {
+    public entry fun mixed_workload(s: &signer, location: address, loop_count: u64, resources: vector<u64>) acquires TestTables {
         let res_table = &mut borrow_global_mut<TestTables>(location).resource_table;
 
         let i = 0;

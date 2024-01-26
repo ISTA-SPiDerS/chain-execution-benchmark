@@ -22,7 +22,7 @@ module Owner::benchmark {
 
     public entry fun p2p_workload(s: &signer, location: address, resource1: u64, resource2: u64) acquires TestTables {
         let i = 0;
-        while (i < 3) {
+        while (i < 8) {
             i = i + 1;
 
             let res_table = &mut borrow_global_mut<TestTables>(location).resource_table;
