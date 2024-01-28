@@ -15,4 +15,4 @@ We created the workloads by recording resource accesses on Ethereum and Solana o
 The resource distribution is provided in the form of a list of resources where each value represents one resource and its probability to be picked.
 I.E. [1,1,1,10] represents 4 resources and their respective probability to be picked, where the first three resources have a probability of 1 (out of 13) and the last resource a probability of 10 (out of 13).
 
-While we only provide move smart contracts and rust coding examples the code is very simple to allow translating this to different languages in a straightforward fashion.
+While we only provide move smart contracts and rust coding examples the code is very simple to facilitate translating this to different languages in a straightforward fashion.
