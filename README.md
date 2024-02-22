@@ -17,3 +17,5 @@ I.E. [1,1,1,10] represents 4 resources and their respective probability to be pi
 
 All smart contracts in this repository are currently written using the [Move](https://github.com/move-language/move) Smart Contract Language. 
 Nonetheless, we kept the smart contract code simple to facilitate porting this benchmark to other smart contract execution engines.
+
+More details can be found in our paper: [paper](https://arxiv.org/abs/2401.14278)
