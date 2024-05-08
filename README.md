@@ -1,4 +1,4 @@
-# Blockchain Execution Engine Benchmark - BEEB
+# Smart Contract Execution Engine Benchmark
 
 This benchmark consists of a total of five individual benchmarks:
 - NFT minting
