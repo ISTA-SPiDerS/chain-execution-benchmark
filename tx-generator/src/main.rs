@@ -1,4 +1,4 @@
-use mixed_workload::{MIXED_DISTRIBUTION, WRITE_LENGTH_DISTRIBUTION};
+use mixed_workload::{GAS_COST_DISTRIBUTION, MIXED_DISTRIBUTION, WRITE_LENGTH_DISTRIBUTION};
 use nft_workload::{NFT_CONTRACT_DISTRIBUTION, NFT_USER_DISTRIBUTION};
 use rand::{
     distr::{weighted::WeightedIndex, Distribution},
@@ -40,13 +40,19 @@ fn solana_concurrency<R: Rng>(rng: &mut R) {
         .map(|_| dist.sample(rng))
         .collect::<Vec<_>>();
 
+    let execution_time = WeightedIndex::new(&GAS_COST_DISTRIBUTION)
+        .expect("Weights should be non-negative and not all zero")
+        .sample(rng);
+
     let median_number_of_inputs =
         percentile(&WRITE_LENGTH_DISTRIBUTION, 50.0).expect("Empty distribution");
     let p70_number_of_inputs =
         percentile(&WRITE_LENGTH_DISTRIBUTION, 70.0).expect("Empty distribution");
 
     println!("Solana workload");
-    println!("Sampled a transaction with input objects: {inputs:?}");
+    println!(
+        "Sampled a transaction with complexity {execution_time} (units of gas) and input objects: {inputs:?}"
+    );
     println!("Median number of inputs: {median_number_of_inputs}");
     println!("P70 number of inputs: {p70_number_of_inputs}\n");
 }
